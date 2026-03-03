@@ -1,0 +1,53 @@
+Instructions to maintain the forms(made in March 2026)!
+
+-->To change the sheet that is attached to the form:
+1.Create a new Google Sheet and rename it properly (for example: CBITMUN_Applications_2027).
+
+2.Inside the sheet, create a tab named exactly Applications_Round1 (do not change this name).
+
+3.Go to Extensions → Apps Script to open the backend editor.
+
+4.Delete any existing code and paste the official backend code that contains the doPost(e) function.
+
+function doPost(e) {
+  try {
+    const data = JSON.parse(e.postData.contents);  // get JSON from form submission
+
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName("Applications_Round1");  // <- target sheet
+
+    if (!sheet) return ContentService.createTextOutput(
+      JSON.stringify({ status: "error", message: "Sheet not found" })
+    ).setMimeType(ContentService.MimeType.JSON);
+
+    // Get headers from first row
+    const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+    // Map data to headers
+    const row = headers.map(header => data[header] || "");  // default to empty if missing
+
+    sheet.appendRow(row);  // add the new submission
+
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "success" })
+    ).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ status: "error", message: err.message })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+
+5.Click Deploy → New Deployment → Web App to deploy the backend.
+
+6.Set “Execute as” to Me and “Who has access” to Anyone, then deploy.
+
+7.Copy the generated Web App URL after deployment.
+
+8.Open the website’s index.html file and find the fetch section where it says fetch("
+
+9.Replace PASTE_THE_URL_HERE with the new Web App URL, then save and push the updated file to GitHub (or re-upload wherever it is hosted).
+
+10.Submit a test response from the live form and confirm that the data appears correctly inside the Applications_Round1 sheet before announcing registrations.
