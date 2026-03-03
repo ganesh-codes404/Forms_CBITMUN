@@ -81,7 +81,7 @@
 
     <!-- SECTION 0: Welcome Page -->
     <div class="form-section active space-y-4 text-center">
-      <img src="./Screenshot 2026-03-03 at 1.24.57 PM.png" alt="CBITMUN Logo" class="mx-auto mb-4 w-32 h-32 object-contain">
+      <a href="https://cbitmun.in"><img src="./Screenshot 2026-03-03 at 1.24.57 PM.png" alt="CBITMUN Logo" class="mx-auto mb-4 w-32 h-32 object-contain"></a>
       <h1 class="text-4xl font-bold mb-4">CBIT MODEL UNITED NATIONS 2026 DELEGATE APPLICATION FORM</h1>
       <h1 style="color: #d4af37;" class="text-2xl font-bold mb-4"><u><a href="https://cbitmun.in">संकल्पेन नेतृत्वम्</a></u></h1>
       <p class="mb-2">Greetings! The Second Round of Delegate and International Press Applications for CBITMUN 2026 is now open!</p>
@@ -166,6 +166,7 @@
 <!-- SECTION: Portfolio Preference 1 -->
 <div class="form-section" id="portfolio1Section">
   <h2 class="text-3xl font-bold text-center mb-4">Portfolio Preferences for Committee 1</h2>
+   <u><h2 class="text-2xl font-bold text-center mb-4" style="color: #d4af37;"><a href="https://docs.google.com/spreadsheets/d/11x-cq0Qw3BFff3QQx9kc0-7D6tB5Y0WsDbDxL0dMbrs/edit?gid=0#gid=0">Portfolio Matrix</a></h2></u>
   <input name="Portfolio Preference - 1" required placeholder="Portfolio 1" class="w-full px-4 py-2 rounded-md"/>
   <input name="Portfolio Preference - 2" placeholder="Portfolio 2" class="w-full px-4 py-2 rounded-md"/>
   <input name="Portfolio Preference - 3" placeholder="Portfolio 3" class="w-full px-4 py-2 rounded-md"/>
@@ -207,6 +208,7 @@
 <!-- SECTION: Portfolio Preference 2 -->
 <div class="form-section" id="portfolio2Section">
   <h2 class="text-3xl font-bold text-center mb-4">Portfolio Preferences for Committee 2</h2>
+  <u><h2 class="text-2xl font-bold text-center mb-4" style="color: #d4af37;"><a href="https://docs.google.com/spreadsheets/d/11x-cq0Qw3BFff3QQx9kc0-7D6tB5Y0WsDbDxL0dMbrs/edit?gid=0#gid=0">Portfolio Matrix</a></h2></u>
   <input name="Portfolio Preference - 1 (1)" required placeholder="Portfolio 1 (1)" class="w-full px-4 py-2 rounded-md"/>
   <input name="Portfolio Preference - 2 (1)" placeholder="Portfolio 2 (1)" class="w-full px-4 py-2 rounded-md"/>
   <input name="Portfolio Preference - 3 (1)" placeholder="Portfolio 3 (1)" class="w-full px-4 py-2 rounded-md"/>
@@ -236,6 +238,16 @@
         <button type="button" class="prev-btn btn-gold px-6 py-2 rounded-md" id="expprev">Previous</button>
         <button type="submit" class="btn-gold w-1/2 py-3 rounded-md text-xl font-bold">Submit Form</button>
       </div>
+    </div>
+
+    <!-- SECTION: Loading Page -->
+    <div class="form-section space-y-4 text-center" id="loadingSection">
+      <img src="./Screenshot 2026-03-03 at 1.24.57 PM.png" alt="CBITMUN Logo" class="mx-auto mb-4 w-32 h-32 object-contain">
+      <h1 class="text-4xl font-bold mb-4">Submitting...</h1>
+      <div class="flex justify-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-t-2" style="border-color: #d4af37;"></div>
+      </div>
+      <p class="text-lg">Please wait while we process your registration.</p>
     </div>
 
     <!-- SECTION: Thank You Page -->
@@ -372,6 +384,12 @@
 
       const data = Object.fromEntries(new FormData(form).entries());
       try {
+        // Show loading section
+        sections.forEach((s, i) => s.classList.remove("active"));
+        document.getElementById("loadingSection").classList.add("active");
+        current = Array.from(sections).indexOf(document.getElementById("loadingSection"));
+        window.scrollTo({ top: 0, behavior: "smooth" });
+
         fetch("https://script.google.com/macros/s/AKfycbzkiKQEYpVZK8lU7doL7CU1mz4i-LT_yRcKrNxl-eULiKMczCXqTG8nBR3yghe1qkpI/exec", {
           method: "POST",
           body: JSON.stringify(data),
@@ -379,15 +397,26 @@
         .then(res => res.json())
         .then(resp => {
           if (resp.status === "success") {
-            sections.forEach((s, i) => s.classList.remove("active"));
-            document.getElementById("thankYouSection").classList.add("active");
-            current = Array.from(sections).indexOf(document.getElementById("thankYouSection"));
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            // Wait 2-3 seconds before showing thank you page
+            setTimeout(() => {
+              sections.forEach((s, i) => s.classList.remove("active"));
+              document.getElementById("thankYouSection").classList.add("active");
+              current = Array.from(sections).indexOf(document.getElementById("thankYouSection"));
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }, 2500);
           } else {
             alert("Submission failed: " + resp.message);
+            sections.forEach((s, i) => s.classList.remove("active"));
+            sections[sections.length - 2].classList.add("active");
+            current = sections.length - 2;
           }
         })
-        .catch(err => alert("Submission failed: " + err.message));
+        .catch(err => {
+          alert("Submission failed: " + err.message);
+          sections.forEach((s, i) => s.classList.remove("active"));
+          sections[sections.length - 2].classList.add("active");
+          current = sections.length - 2;
+        });
       } catch(e) {
         alert("Error: " + e.message);
       }
@@ -470,6 +499,77 @@ document.addEventListener("DOMContentLoaded", () => {
     IP2: "IP"
   };
 
+  // Mapping between committee 1 and committee 2 button IDs
+  const buttonMapping = {
+    comm11: "comm21",
+    comm12: "comm22",
+    comm13: "comm23",
+    comm14: "comm24",
+    comm15: "comm25",
+    IP1: "IP2",
+    comm21: "comm11",
+    comm22: "comm12",
+    comm23: "comm13",
+    comm24: "comm14",
+    comm25: "comm15",
+    IP2: "IP1"
+  };
+
+  // Function to disable/enable committee buttons
+  function updateButtonStates() {
+    const committee1Value = document.getElementById("committee1").value;
+    const committee2Value = document.getElementById("committee2").value;
+    
+    // Get all committee 1 buttons
+    const committee1Buttons = document.querySelectorAll('#committee1Buttons button');
+    const committee2Buttons = document.querySelectorAll('#committee2Buttons button');
+    
+    // Disable buttons based on selections
+    committee1Buttons.forEach(btn => {
+      const btnId = btn.id;
+      const correspondingBtn2Id = buttonMapping[btnId];
+      const correspondingBtn2 = document.getElementById(correspondingBtn2Id);
+      
+      if (committee1Value === committeeNames[btnId]) {
+        // This button is selected in committee 1, disable its counterpart in committee 2
+        if (correspondingBtn2) {
+          correspondingBtn2.disabled = true;
+          correspondingBtn2.style.opacity = "0.5";
+          correspondingBtn2.style.cursor = "not-allowed";
+        }
+      } else {
+        // This button is not selected, enable its counterpart if committee 2 doesn't have another selection
+        if (correspondingBtn2) {
+          correspondingBtn2.disabled = false;
+          correspondingBtn2.style.opacity = "1";
+          correspondingBtn2.style.cursor = "pointer";
+        }
+      }
+    });
+
+    committee2Buttons.forEach(btn => {
+      const btnId = btn.id;
+      const correspondingBtn1Id = buttonMapping[btnId];
+      const correspondingBtn1 = document.getElementById(correspondingBtn1Id);
+      
+      if (committee2Value === committeeNames[btnId]) {
+        // This button is selected in committee 2, disable its counterpart in committee 1
+        if (correspondingBtn1) {
+          correspondingBtn1.disabled = true;
+          correspondingBtn1.style.opacity = "0.5";
+          correspondingBtn1.style.cursor = "not-allowed";
+        }
+      } else {
+        // This button is not selected, enable its counterpart if committee 1 doesn't have another selection
+        if (correspondingBtn1) {
+          correspondingBtn1.disabled = false;
+          correspondingBtn1.style.opacity = "1";
+          correspondingBtn1.style.cursor = "pointer";
+        }
+      }
+    });
+  }
+
   // Attach click listeners for all mapped buttons
   Object.keys(mapNext).forEach(btnId => {
     const btn = document.getElementById(btnId);
@@ -487,6 +587,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const committeeName = committeeNames[btnId];
         const committeeId = isCommittee1 ? "committee1" : "committee2";
         document.getElementById(committeeId).value = committeeName;
+        
+        // Update button states
+        updateButtonStates();
         
         sections[current].classList.remove("active");
         current = Array.from(sections).indexOf(document.getElementById(mapNext[btnId]));
@@ -533,8 +636,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("ip1prev").addEventListener("click", () => {
-    sections[current].classList.remove("active");
-    current = Array.from(sections).indexOf(document.getElementById("committee1Section"));
+    sections[current].classList.remove("active");    document.getElementById("committee1").value = "";
+    document.getElementById("committee2").value = "";
+    document.querySelectorAll('#committee1Buttons button, #committee2Buttons button').forEach(btn => {
+      btn.classList.remove("selected");
+      btn.disabled = false;
+      btn.style.opacity = "1";
+      btn.style.cursor = "pointer";
+    });    current = Array.from(sections).indexOf(document.getElementById("committee1Section"));
     sections[current].classList.add("active");
   });
   document.getElementById("ip2Prev").addEventListener("click", () => {
