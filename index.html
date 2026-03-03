@@ -75,7 +75,7 @@
     
     <!-- Watermark -->
     <div class="watermark">
-      <span>Forms by</span>
+      <span>Form by</span>
       <img src="./Screenshot 2026-03-03 at 1.24.57 PM.png" alt="Club Logo" class="w-5 h-5 rounded-full" />
     </div>
 
@@ -84,9 +84,9 @@
       <img src="./Screenshot 2026-03-03 at 1.24.57 PM.png" alt="CBITMUN Logo" class="mx-auto mb-4 w-32 h-32 object-contain">
       <h1 class="text-4xl font-bold mb-4">CBIT MODEL UNITED NATIONS 2026 DELEGATE APPLICATION FORM</h1>
       <h1 style="color: #d4af37;" class="text-2xl font-bold mb-4"><u><a href="https://cbitmun.in">संकल्पेन नेतृत्वम्</a></u></h1>
-      <p class="mb-2">Greetings! The First Round of Delegate and International Press Applications for CBITMUN 2026 is now open!</p>
+      <p class="mb-2">Greetings! The Second Round of Delegate and International Press Applications for CBITMUN 2026 is now open!</p>
       <p class="mb-2">Apply now to join us from the 10th to 12th of April for yet another glorious edition.</p>
-      <p class="mb-2">For any queries, contact Priyasha (USG) - 9908520947 or Sohan (USG) - 9550527704</p>
+      <p class="mb-2">For any queries, contact:</p><p>Priyasha (Under-Secretary General) - 9908520947 </p><p> Sohan (Under-Secretary General) - 9550527704</p>
       <button type="button" class="next-btn btn-gold px-6 py-2 rounded-md text-lg">Start</button>
     </div>
 
@@ -150,9 +150,11 @@
   <h2 class="text-3xl font-bold text-center mb-4">Committee Preference 1</h2>
 <div class="flex flex-col gap-4 items-center" id="committee1Buttons">
   <input type="hidden" name="Committee Preference - 1" id="committee1" required />
-  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="DISEC1">DISEC</button>
-  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="HRC1">HRC</button>
-  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="UNSC1">UNSC</button>
+  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="comm11">UNGA-DISEC</button>
+  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="comm12">UNHRC</button>
+  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="comm13">IMF</button>
+  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="comm14">Joint Parliamentary Committee (JPC)</button>
+  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="comm15">Historic Crisis Committee (HCC)</button>
   <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="IP1">International Press</button>
 </div>
   <div class="flex justify-between mt-4">
@@ -189,9 +191,11 @@
   <h2 class="text-3xl font-bold text-center mb-4">Committee Preference 2</h2>
 <div class="flex flex-col gap-4 items-center" id="committee2Buttons">
   <input type="hidden" name="Committee Preference - 2" id="committee2" required />
-  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="DISEC2">DISEC</button>
-  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="HRC2">HRC</button>
-  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="UNSC2">UNSC</button>
+  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="comm21">UNGA-DISEC</button>
+  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="comm22">UNHRC</button>
+  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="comm23">IMF</button>
+  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="comm24">Joint Parliamentary Committee (JPC)</button>
+  <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="comm25">Historic Crisis Committee (HCC)</button>
   <button type="button" class="btn-gold px-6 py-2 rounded-md w-48 text-center" id="IP2">International Press</button>
 </div>
   <div class="flex justify-between mt-4">
@@ -239,9 +243,7 @@
       <img src="./Screenshot 2026-03-03 at 1.24.57 PM.png" alt="CBITMUN Logo" class="mx-auto mb-4 w-32 h-32 object-contain">
       <h1 class="text-4xl font-bold mb-4">Thank You!</h1>
       <h2 style="color: #d4af37;" class="text-2xl font-bold mb-4">Your Registration is Complete</h2>
-      <p class="mb-2">Thank you for applying to CBITMUN 2026!</p>
-      <p class="mb-2">We have received your application and will review it carefully.</p>
-      <p class="mb-2">You will be notified about the results soon.</p>
+      <p class="class="text-4xl font-bold mb-4"">Thank you for applying to CBITMUN 2026!</p>
       <p class="mb-4">Get ready for an amazing experience from the 10th to 12th of April.</p>
       <button type="button" class="next-btn btn-gold px-6 py-2 rounded-md text-lg" id="backToHomeBtn">Back to Home</button>
     </div>
@@ -439,13 +441,33 @@ document.addEventListener("DOMContentLoaded", () => {
   // Mapping of buttons to next sections
   const mapNext = {
     IP1: "IP1Section",
-    DISEC1: "portfolio1Section",
-    HRC1: "portfolio1Section",
-    UNSC1: "portfolio1Section",
+    comm11: "portfolio1Section",
+    comm12: "portfolio1Section",
+    comm13: "portfolio1Section",
+    comm14: "portfolio1Section",
+    comm15: "portfolio1Section",
     IP2: "IP2Section",
-    DISEC2: "portfolio2Section",
-    HRC2: "portfolio2Section",
-    UNSC2: "portfolio2Section"
+    comm21: "portfolio2Section",
+    comm22: "portfolio2Section",
+    comm23: "portfolio2Section",
+    comm24: "portfolio2Section",
+    comm25: "portfolio2Section"
+  };
+
+  // Mapping of button IDs to committee names
+  const committeeNames = {
+    comm11: "UNGA-DISEC",
+    comm12: "UNHRC",
+    comm13: "IMF",
+    comm14: "JPC",
+    comm15: "HCC",
+    IP1: "IP",
+    comm21: "UNGA-DISEC",
+    comm22: "UNHRC",
+    comm23: "IMF",
+    comm24: "JPC",
+    comm25: "HCC",
+    IP2: "IP"
   };
 
   // Attach click listeners for all mapped buttons
@@ -454,17 +476,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btn) {
       btn.addEventListener("click", () => {
         // Determine which committee section this button belongs to
-        const isCommittee1 = btnId.includes('1');
+        const isCommittee1 = btnId.includes('1') && !btnId.includes('2');
         const containerSelector = isCommittee1 ? '#committee1Buttons' : '#committee2Buttons';
         
         // Remove selected from all buttons in this committee section
         document.querySelectorAll(containerSelector + ' button').forEach(b => b.classList.remove("selected"));
         btn.classList.add("selected");
         
-        // Extract committee name
-        const committeeName = btnId.replace(/[0-9]/g, '');
+        // Get committee name from mapping
+        const committeeName = committeeNames[btnId];
         const committeeId = isCommittee1 ? "committee1" : "committee2";
-        document.getElementById(committeeId).value = (committeeName === 'IP' ? 'IP' : committeeName);
+        document.getElementById(committeeId).value = committeeName;
         
         sections[current].classList.remove("active");
         current = Array.from(sections).indexOf(document.getElementById(mapNext[btnId]));
